@@ -1,0 +1,24 @@
+@import "~bootstrap/scss/bootstrap";
+
+$primary: darken(#428bca, 20%);
+$danger: #f0625a, 10%;
+
+body {
+    background-color: lightgrey;
+}
+
+.navbar {
+    background-color: $danger;
+}
+
+.home {
+    text-align: center;
+}
+
+h1 {
+    margin: 24px;
+}
+h2 {
+    margin: 16px;
+}
+
