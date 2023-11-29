@@ -17,7 +17,7 @@ class CategoryFixtures extends Fixture
         'Humour',
         'Biopic',
         'Romance',
-        'Sience-fiction',
+        'Sicence-fiction',
         'Dessin animé',
     ];
     public function load(ObjectManager $manager)
