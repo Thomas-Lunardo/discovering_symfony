@@ -19,6 +19,7 @@ class CategoryFixtures extends Fixture
         'Romance',
         'Sicence-fiction',
         'Dessin animé',
+        'Policier'
     ];
     public function load(ObjectManager $manager)
     {
