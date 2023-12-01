@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\ProgramRepository;
+use App\Repository\SeasonRepository;
 
 class ProgramController extends AbstractController
 {
@@ -15,20 +16,26 @@ class ProgramController extends AbstractController
         $programs = $programRepository->findAll();
 
         return $this->render('program/index.html.twig', [
-            'programs' => $programs
+            'programs' => $programs,
          ]);
     }
 
     #[Route('/program/{id}', requirements: ['page'=>'\d+'], methods: ['GET'], name:'program_show')]
-    public function show(int $id, ProgramRepository $programRepository): Response
+    public function show(int $id, ProgramRepository $programRepository, SeasonRepository $seasonRepository): Response
     {
-        $program = $programRepository->findOneBy(['id' => $id]);
+        $program = $programRepository->find($id);
+        $seasons = $seasonRepository->find($id);
 
-        if (!$program) {
-            throw $this->createNotFoundException(
-                'No program with id : '.$id.' found in program\'s table.'
-            );
-        }
-        return $this->render('program/show.html.twig', ['program' => $program]);
+        return $this->render('program/show.html.twig', ['program' => $program, 'seasons' => $seasons,]);
+    }
+
+    #[Route('/program/{programId}/season/{seasonId}', name:'program_season_show')]
+    public function showSesaon(int $programId, int $seasonId, ProgramRepository $programRepository, SeasonRepository $seasonRepository): Response
+    {
+        $program = $programRepository->findOneById($programId);
+        // $programCategory = $program->getC => mettre la bidirectionnalité
+        $season = $seasonRepository->findOneById($seasonId);
+
+        return $this->render('program/season_show.html.twig', ['program' => $program, 'season' => $season,]);
     }
 }
