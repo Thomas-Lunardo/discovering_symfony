@@ -1,3 +1,3 @@
 # discovering_symfony
 
-discovering symfony the wild serie web site
+Discovering symfony the wild-series web site
