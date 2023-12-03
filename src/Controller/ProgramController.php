@@ -25,31 +25,30 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/program/{id}', requirements: ['page'=>'\d+'], methods: ['GET'], name:'program_show')]
-    public function show(Program $program, Season $seasons): Response
+    public function show(Program $program): Response
     {
         return $this->render('program/show.html.twig', [
             'program' => $program,
-            'seasons' => $seasons,
         ]);
     }
 
-    #[Route('/program/{program}/season/{season}', name:'program_season_show')]
+    #[Route('/program/{program}/season/{season}', name:'season_show')]
     public function showSesaon(Program $program, Season $season): Response
     {
-                return $this->render('program/season_show.html.twig', [
+            return $this->render('program/season_show.html.twig', [
             'program' => $program,
             'season' => $season,
         ]);
     }
 
-    #[Route('/program/{programId}/season/{seasonId}/episode/{episodeId}', name:'program_season_show')]
+    #[Route('/program/{program_id}/season/{season_id}/episode/{episode_id}', name:'episode_show')]
     public function showEpisode(
         #[MapEntity(mapping: ['program_id' => 'id'])] Program $program, 
         #[MapEntity(mapping: ['season_id' => 'id'])] Season $season,
         #[MapEntity(mapping: ['episode_id' => 'id'])] Episode $episode,
         ): Response
     {
-            return $this->render('program/season_show.html.twig', [
+            return $this->render('program/episode_show.html.twig', [
             'program' => $program,
             'season' => $season,
             'episode' => $episode
