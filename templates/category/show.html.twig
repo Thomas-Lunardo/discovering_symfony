@@ -5,14 +5,14 @@
 
 {% block body %}
 <div class="container">
-	<h1>All programes by categories avalable in Wild series</h1>
+	<h1 class="mt-5 mb-5">All programes by categories avalable in Wild series</h1>
 	{% for program in programes%}
 		<div class="media-body">
-			<h1 class="mt-0">{{ loop.index }} / {{ program.title }}</h1>
-			<p>{{ program.synopsis }}</p>
-			<p>Category :
+			<h1 class="mt-0">{{ loop.index }}/ {{ program.title }}</h1>
+			<p class="fs-5">{{ program.synopsis }}</p>
+			<p class="fs-5">Category:
 				{{ program.category.name }}</p>
-                <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
+                <a href="{{ path("program_show", { id: program.id }) }}" class="fs-5">Voir la fiche</a>
 		</div>
 	{% else %}
 		No program yet

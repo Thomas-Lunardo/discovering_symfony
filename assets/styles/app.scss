@@ -22,3 +22,9 @@ h2 {
     margin: 16px;
 }
 
+.row>* {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+}
+

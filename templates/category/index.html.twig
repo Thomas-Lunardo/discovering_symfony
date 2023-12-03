@@ -5,13 +5,13 @@
 
 {% block body %}
 <div class="container">
-	<h1 class="mb-5 text-center">All category avalable in Wild series</h1>
+	<h1 class="mt-5 mb-5 text-center">All category avalable in Wild series</h1>
 	{% for category in categories%}
 		<div>
-			<h2 class="mt-2">
-				{{ loop.index }}/{{ category.name}}
+			<h2 class="mt-4">
+				{{ loop.index }}/ {{ category.name}}
             </h2>
-			<a href="{{ path("category_show", { categoryName: category.name }) }}">Show the programes</a>
+			<a href="{{ path("category_show", { categoryName: category.name }) }}" class="fs-5">Show programes</a>
 		</div>
 	{% else %}
 		No program yet

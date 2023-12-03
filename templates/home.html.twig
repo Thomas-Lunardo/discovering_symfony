@@ -8,16 +8,16 @@
 		<h1>{{ website }}</h1>
 		<h2 class="text-muted mb-5">Welcome</h2>
 		<div class="row">
-		{% for program in programs %}
-						<div class="card col col-lg-2" style="width: 18rem;">
-				<img src="{{ program.poster }}" class=" img-fluid rounded mx-auto d-block" alt="program poster"/>
-				<div class="card-body">
-					<h5 class="card-title">{{ program.title}}</h5>
-					<p class="card-text">{{ program.synopsis}}</p>
-					<a href="#" class="btn btn-primary">Watch</a>
+			{% for program in programs %}
+				<div class="card col-md-6 col-xl-3" style="width: 20rem">
+					<img src="{{ program.poster }}" class=" img-fluid rounded mx-auto d-block" alt="{{ program.title }} poster"/>
+					<div class="card-body">
+						<h5 class="card-title">{{ program.title}}</h5>
+						<p class="card-text">{{ program.synopsis}}</p>
+						<a href="#" class="btn btn-primary">Watch</a>
+					</div>
 				</div>
-			</div>
-		{% endfor %}
+			{% endfor %}
 
 		</div>
 
