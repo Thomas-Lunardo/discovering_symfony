@@ -5,11 +5,11 @@
 
 {% block body %}
 	<div class="media container mt-5">
-		<img class="align-self-start mr-3" src="{{ program.poster }}" alt="{{ program.title }} poster">
+		<img src="{{ program.poster }}" class=" img-fluid rounded mx-auto d-block" alt="{{ program.title }} poster"/>
 		<div class="media-body">
-			<h1 class="mt-0">{{ program.title }}</h1>
-			<p>{{ program.synopsis }}</p>
-			<p>Category :
+			<h1 class="mt-4">{{ program.title }}</h1>
+			<p class="fs-5">{{ program.synopsis }}</p>
+			<p class="fs-5 mt-3">Category:
 				{{ program.category.name }}</p>
 		</div>
 		<h2>Seasons<h2>
@@ -19,7 +19,7 @@
 							<li>Season n°
 								{{ season.number }}</li>
 						</a>
-						<p>
+						<p class="mt-4">
 							{{ season.description }}
 						</p>
 					{% endfor %}

@@ -4,17 +4,21 @@
 {% endblock %}
 
 {% block body %}
-<div class="container">
-	<h1 class="text-center mb-5">All progames avalable in Wild series</h1>
-	{% for program in programs%}
-		<div>
-			<h2>
-				{{ loop.index }}/{{ program.title}}- Category :{{ program.category.name}}
-            </h2>
-            <a href="{{ path("program_show", { id: program.id }) }}">Voir la fiche</a>
-		</div>
-	{% else %}
-		No program yet
-	{% endfor %}
+	<div class="container">
+		<h1 class="text-center mb-5">All progames avalable in Wild series</h1>
+		{% for program in programs%}
+			<div>
+				<h2>
+					{{ loop.index }}/ {{ program.title}}
+				</h2>
+				<h3>Category:
+					{{ program.category.name}}</h3>
+				<a href="{{ path("program_show", { id: program.id }) }}">
+					<img src="{{ program.poster }}" class=" img-fluid rounded mx-auto d-block" alt="program poster"/>
+				</a>
+			</div>
+		{% else %}
+			No program yet
+		{% endfor %}
 	</div>
 {% endblock %}
