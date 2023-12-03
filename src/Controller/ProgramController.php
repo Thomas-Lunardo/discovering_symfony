@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Episode;
 use App\Entity\Program;
 use App\Entity\Season;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,6 +39,20 @@ class ProgramController extends AbstractController
                 return $this->render('program/season_show.html.twig', [
             'program' => $program,
             'season' => $season,
+        ]);
+    }
+
+    #[Route('/program/{programId}/season/{seasonId}/episode/{episodeId}', name:'program_season_show')]
+    public function showEpisode(
+        #[MapEntity(mapping: ['program_id' => 'id'])] Program $program, 
+        #[MapEntity(mapping: ['season_id' => 'id'])] Season $season,
+        #[MapEntity(mapping: ['episode_id' => 'id'])] Episode $episode,
+        ): Response
+    {
+            return $this->render('program/season_show.html.twig', [
+            'program' => $program,
+            'season' => $season,
+            'episode' => $episode
         ]);
     }
 }
