@@ -12,6 +12,10 @@
 			<p class="fs-5 mt-3">Category:
 				{{ program.category.name }}</p>
 		</div>
+		<p class="fs-5">Program country :
+			{{ program.country }}</p>
+		<p class="fs-5">Program year :
+			{{ program.year }}</p>
 		<h2>Seasons<h2>
 				<ul>
 					{% for season in program.seasons %}
@@ -19,6 +23,9 @@
 							<li>Season n°
 								{{ season.number }}</li>
 						</a>
+						<p class="mt-4">
+							{{ season.description }}
+						</p>
 						<p class="mt-4">
 							{{ season.description }}
 						</p>
