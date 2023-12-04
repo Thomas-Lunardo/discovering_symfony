@@ -32,7 +32,7 @@ public function new(Request $request, EntityManagerInterface $entityManager) : R
     $form = $this->createForm(CategoryType::class, $category);
     $form->handleRequest($request);
 
-    if ($form->isSubmitted()) {
+    if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->persist($category);
         $entityManager->flush();            
 

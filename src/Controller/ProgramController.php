@@ -14,6 +14,8 @@ use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 use App\Form\ProgramType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class ProgramController extends AbstractController
 {
@@ -36,7 +38,7 @@ class ProgramController extends AbstractController
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
         // Was the form submitted ?
-            if ($form->isSubmitted()) {
+            if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($program);
             $entityManager->flush();
             return $this->redirectToRoute('program_index');
