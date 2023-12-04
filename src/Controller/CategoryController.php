@@ -36,7 +36,7 @@ public function new(Request $request, EntityManagerInterface $entityManager) : R
         $entityManager->persist($category);
         $entityManager->flush();   
         
-        $this->addFlash('success', 'The new program has been created');
+        $this->addFlash('success', 'The new catergory has been created');
 
         // Redirect to categories list
         return $this->redirectToRoute('category_index');

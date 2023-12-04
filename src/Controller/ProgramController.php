@@ -41,10 +41,13 @@ class ProgramController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($program);
             $entityManager->flush();
+
+            $this->addFlash('success', 'The new program has been created');
+
             return $this->redirectToRoute('program_index');
             }
 
-        return $this->render('program/new.html.twig', [
+            return $this->render('program/new.html.twig', [
             'form' => $form,
         ]);
     }
