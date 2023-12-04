@@ -34,7 +34,9 @@ public function new(Request $request, EntityManagerInterface $entityManager) : R
 
     if ($form->isSubmitted() && $form->isValid()) {
         $entityManager->persist($category);
-        $entityManager->flush();            
+        $entityManager->flush();   
+        
+        $this->addFlash('success', 'The new program has been created');
 
         // Redirect to categories list
         return $this->redirectToRoute('category_index');
