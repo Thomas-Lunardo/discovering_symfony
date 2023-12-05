@@ -2,39 +2,31 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
+use App\Repository\ActorRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
-#[ORM\Entity(repositoryClass: CategoryRepository::class)]
+#[ORM\Entity(repositoryClass: ActorRepository::class)]
 #[UniqueEntity(
     fields: ['name'],
     errorPath: 'name',
-    message: 'This category already exists in the database',
+    message: 'This actor already exists in the database',
 )]
-class Category
+class Actor
 {
-    
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-
     private ?int $id = null;
-    
 
-    #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank(message: 'Ne me laisse pas tout vide')]
-    #[Assert\Length(
-        max: 255,
-        maxMessage: 'La catégorie saisie {{ value }} est trop longue, elle ne devrait pas dépasser {{ limit }} caractères',
-    )]
+    #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Program::class)]
-    private $programs;
+    #[ORM\ManyToMany(targetEntity: Program::class, inversedBy: 'actors')]
+    private Collection $programs;
 
     public function __construct()
     {
@@ -58,27 +50,27 @@ class Category
         return $this;
     }
 
+    /**
+     * @return Collection<int, Program>
+     */
     public function getPrograms(): Collection
     {
         return $this->programs;
     }
 
-    public function addProgram(Program $program): self
+    public function addProgram(Program $program): static
     {
         if (!$this->programs->contains($program)) {
             $this->programs->add($program);
-            $program->setCategory($this);
         }
+
         return $this;
     }
 
-    public function removeProgram(Program $program): self
+    public function removeProgram(Program $program): static
     {
-        if ($this->programs->removeElement($program)) {
-            if ($program->getCategory() === $this) {
-                $program->setCategory(null);
-            }
-        }
+        $this->programs->removeElement($program);
+
         return $this;
     }
 }

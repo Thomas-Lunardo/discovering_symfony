@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Actor
+{% endblock %}
+
+{% block body %}
+	<h1 class="text-center mt-6">Actor</h1>
+
+	<table class="table container mt-4">
+		<tbody>
+			<tr>
+				<th>Id</th>
+				<td>{{ actor.id }}</td>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<td>{{ actor.name }}</td>
+			</tr>
+			<tr>
+				<th>Programs</th>
+				<td>
+					{% for program in actor.programs %}
+						<li class="fs-4"><a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a></li>
+					{% else %}
+						<li>No program yet for this actor</li>
+					{% endfor %}
+				</td>
+			</tr>
+		</tbody>
+	</table>
+    <div class="text-center mb-3">
+	<a href="{{ path('app_actor_index') }}" class="fs-4">back to list</a><br>
+
+	<a href="{{ path('app_actor_edit', {'id': actor.id}) }}" class="fs-4">edit</a>
+
+	{{ include('actor/_delete_form.html.twig') }}
+    </div>
+{% endblock %}
