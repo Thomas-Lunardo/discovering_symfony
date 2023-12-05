@@ -10,7 +10,7 @@
 		<div class="row">
 			{% for program in programs %}
 				<div class="card col-md-6 col-xl-3" style="width: 20rem">
-					<img src="{{ program.poster }}" class=" img-fluid rounded mx-auto d-block" alt="{{ program.title }} poster"/>
+					<img src="{{ program.poster }}" class="img-fluid rounded mx-auto d-block" alt="{{ program.title }} poster"/>
 					<div class="card-body">
 						<h5 class="card-title">{{ program.title}}</h5>
 						<p class="card-text">{{ program.synopsis}}</p>
@@ -18,9 +18,6 @@
 					</div>
 				</div>
 			{% endfor %}
-
 		</div>
-
-
 	</div>
 {% endblock %}

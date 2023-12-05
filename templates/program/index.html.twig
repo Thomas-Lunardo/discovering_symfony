@@ -4,7 +4,7 @@
 {% endblock %}
 
 {% block body %}
-	<div class="container">
+	<div class="container mb-4">
 		<h1 class="text-center mb-5">All progames avalable in Wild series</h1>
 		{% for program in programs%}
 			<div>
@@ -14,7 +14,7 @@
 				<h3>Category:
 					{{ program.category.name}}</h3>
 				<a href="{{ path("program_show", { id: program.id }) }}">
-					<img src="{{ program.poster }}" class=" img-fluid rounded mx-auto d-block" alt="program poster"/>
+					<img src="{{ program.poster }}" class=" img-fluid rounded mx-auto d-block w-25" alt="program poster"/>
 				</a>
 			</div>
 		{% else %}
