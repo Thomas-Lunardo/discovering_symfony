@@ -13,7 +13,7 @@
 				</h2>
 				<h3>Category:
 					{{ program.category.name}}</h3>
-				<a href="{{ path("program_show", { id: program.id }) }}">
+				<a href="{{ path("program_show", { slug: program.slug }) }}">
 					<img src="{{ program.poster }}" class=" img-fluid rounded mx-auto d-block" alt="program poster"/>
 				</a>
 			</div>

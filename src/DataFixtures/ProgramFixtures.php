@@ -6,9 +6,12 @@ use App\Entity\Program;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProgramFixtures extends Fixture implements DependentFixtureInterface
 {
+
+    public function __construct(private SluggerInterface $slugger){}
     public const PROGRAMES = [
         ['title' => 'Love Actually', 'synopsis' => 'Suit la vie de huit couples très différents qui gèrent leur vie amoureuse dans divers récits vaguement interdépendants, le tout se déroulant pendant la période frénétique de Noël à Londres.', 'category' => 'category_Romance', 'poster' => 'build/images/love_actually.48f3179f.png', 'country' => 'United-States', 'year' => '2009',],
         ['title' => 'Transformers: Rise of the Beasts', 'synopsis' => 'Il suit à nouveau un groupe de Decepticons et d\'Autobots qui s\'affrontent dans une guerre entre ceux qui veulent contrôler la planète et ceux qui veulent vivre en communion.', 'category' => 'category_Sicence-fiction', 'poster' => 'build/images/tranformer_rise_of_the_beasts.e75706f0.png', 'country' => 'United-States', 'year' => '2009',],
@@ -17,11 +20,14 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
         ['title' => 'Self Control', 'synopsis' => 'A la suite d\'un malentendu qui dérape dans un avion, le timide David Buznik se retrouve condamné à suivre une thérapie de groupe de gestion des pulsions de colère. Après une première séance peu concluante, le docteur psychopathe et caractériel convainc le juge de le suivre à domicile.', 'category' => 'category_Humour', 'poster' => 'build/images/self_control.af7011fe.png', 'country' => 'United-States', 'year' => '2008',],
         ['title' => 'Breaking Bad', 'synopsis' => 'Un professeur de chimie de lycée chez qui on a diagnostiqué un cancer du poumon inopérable se tourne vers la fabrication et la vente de méthamphétamine pour assurer l\'avenir de sa famille.', 'category' => 'category_Policier', 'poster' => 'build/images/breaking_bad.bde4b71b.png', 'country' => 'United-States', 'year' => '2008',],
     ];
+
     public function load(ObjectManager $manager)
     {
         foreach (self::PROGRAMES as $programName) {
             $program = new Program();
             $program->setTitle($programName['title']);
+            $slug = $this->slugger->slug($programName['title']);
+            $program->setSlug($slug);
             $program->setSynopsis($programName['synopsis']);
             $program->setCountry($programName['country']);
             $program->setYear($programName['year']);

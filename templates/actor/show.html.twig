@@ -20,7 +20,7 @@
 				<th>Programs</th>
 				<td>
 					{% for program in actor.programs %}
-						<li class="fs-4"><a href="{{ path("program_show", { id: program.id }) }}">{{ program.title }}</a></li>
+						<li class="fs-4"><a href="{{ path("program_show", { slug: program.slug }) }}">{{ program.title }}</a></li>
 					{% else %}
 						<li>No program yet for this actor</li>
 					{% endfor %}
