@@ -1,4 +1,6 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_5_layout.html.twig' %}
+
 
 {% block title %}Wild Series
 {% endblock %}
@@ -9,7 +11,7 @@
         <div class="form-control text-center">
 		{{ form_start(form) }}
 		{{ form_widget(form) }}
-		<button type="submit" class="btn btn-danger mt-4 mb-2">Add category</button>
+		<button type="submit" class="btn btn-danger mt-4 mb-2 fs-4">Add category</button>
 		{{ form_end(form) }}
         </div>
 	</div>

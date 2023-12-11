@@ -3,6 +3,11 @@
 $primary: darken(#428bca, 20%);
 $danger: #f0625a, 10%;
 
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
 body {
     background-color: lightgrey;
 }
