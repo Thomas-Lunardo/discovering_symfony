@@ -43,9 +43,9 @@ class ProgramController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $slug = $slugger->slug($program->getTitle());
                 $program->setSlug($slug);
-            $entityManager->persist($program);
-
-            $email = (new Email())
+                
+                $entityManager->persist($program);
+                $email = (new Email())
                     ->from($this->getParameter('mailer_from'))
                     ->to('your_email@example.com')
                     ->subject('Une nouvelle série vient d\'être publiée !')
