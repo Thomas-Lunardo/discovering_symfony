@@ -15,6 +15,9 @@ use App\Form\ProgramType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+
 
 class ProgramController extends AbstractController
 {
@@ -29,7 +32,7 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/new', name: 'new')]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger, MailerInterface $mailer): Response
     {
         $program = new Program();
 
@@ -38,10 +41,24 @@ class ProgramController extends AbstractController
         $form->handleRequest($request);
         // Was the form submitted ?
             if ($form->isSubmitted() && $form->isValid()) {
-                $entityManager->persist($program);
-                $entityManager->flush();
+                $slug = $slugger->slug($program->getTitle());
+                $program->setSlug($slug);
+            $entityManager->persist($program);
+
+            $email = (new Email())
+                    ->from($this->getParameter('mailer_from'))
+                    ->to('your_email@example.com')
+                    ->subject('Une nouvelle série vient d\'être publiée !')
+                    ->html('<p>Une nouvelle série vient d\'être publiée sur Wild Séries !</p>');
+    
+            $mailer->send($email);
+
+            $entityManager->flush();
+
 
             $this->addFlash('success', 'The new program has been created');
+
+
 
             return $this->redirectToRoute('program_index');
             }
