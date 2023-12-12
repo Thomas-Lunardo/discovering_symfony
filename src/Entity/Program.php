@@ -47,7 +47,6 @@ class Program
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    private Collection $h;
 
     #[ORM\OneToMany(mappedBy: 'program', targetEntity: Season::class)]
     private Collection $seasons;
@@ -66,7 +65,6 @@ class Program
 
     public function __construct()
     {
-        $this->h = new ArrayCollection();
         $this->seasons = new ArrayCollection();
         $this->actors = new ArrayCollection();
     }
@@ -120,36 +118,6 @@ class Program
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Season>
-     */
-    public function getH(): Collection
-    {
-        return $this->h;
-    }
-
-    public function addH(Season $h): static
-    {
-        if (!$this->h->contains($h)) {
-            $this->h->add($h);
-            $h->setProgram($this);
-        }
-
-        return $this;
-    }
-
-    public function removeH(Season $h): static
-    {
-        if ($this->h->removeElement($h)) {
-            // set the owning side to null (unless already changed)
-            if ($h->getProgram() === $this) {
-                $h->setProgram(null);
-            }
-        }
 
         return $this;
     }

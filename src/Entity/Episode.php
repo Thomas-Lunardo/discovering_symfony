@@ -29,10 +29,7 @@ class Episode
     #[ORM\Column]
     private ?int $duration = null;
 
-    // #[ORM\Column(length: 255)]
-    // private ?string $slug = null;
-
-    public function getId(): ?int
+     public function getId(): ?int
     {
         return $this->id;
     }
