@@ -4,35 +4,25 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="text-center mt-6">Actor</h1>
+	<h1 class="text-center mt-6 p-4">Actor</h1>
 
-	<table class="table container mt-4">
-		<tbody>
-			<tr>
-				<th>Id</th>
-				<td>{{ actor.id }}</td>
-			</tr>
-			<tr>
-				<th>Name</th>
-				<td>{{ actor.name }}</td>
-			</tr>
-			<tr>
-				<th>Programs</th>
-				<td>
-					{% for program in actor.programs %}
-						<li class="fs-4"><a href="{{ path("program_show", { slug: program.slug }) }}">{{ program.title }}</a></li>
-					{% else %}
-						<li>No program yet for this actor</li>
-					{% endfor %}
-				</td>
-			</tr>
-		</tbody>
-	</table>
-    <div class="text-center mb-3">
-	<a href="{{ path('app_actor_index') }}" class="fs-4">back to list</a><br>
+	<div class="card container mt-4 text-center w-50">
+		<h2>{{ actor.name }}</h2>
+		<img src="{{ vich_uploader_asset(actor) }}" alt="{{ actor.name }}" class="w-25 rounded mx-auto d-block">
+		<h3 class="mt-4">Programs</h3>
+		{% for program in actor.programs %}
+			<li class="fs-4 m-2">
+				<a href="{{ path("program_show", { slug: program.slug }) }}">{{ program.title }}</a>
+			</li>
+		{% else %}
+			<li>No program yet for this actor</li>
+		{% endfor %}
+	</div>
+	<div class="text-center m-3">
+		<a href="{{ path('app_actor_index') }}" class="fs-4 m-2 btn btn-primary">back to list</a><br>
 
-	<a href="{{ path('app_actor_edit', {'id': actor.id}) }}" class="fs-4">edit</a>
+		<a href="{{ path('app_actor_edit', {'id': actor.id}) }}" class="fs-4 m-2 btn btn-primary">edit</a>
 
-	{{ include('actor/_delete_form.html.twig') }}
-    </div>
+		{{ include('actor/_delete_form.html.twig') }}
+	</div>
 {% endblock %}

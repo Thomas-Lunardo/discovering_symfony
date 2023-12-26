@@ -18,10 +18,10 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 
-
+#[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
 {
-    #[Route('/program/', name: 'program_index')]
+    #[Route('/', name: 'index')]
     public function index(ProgramRepository $programRepository): Response
     {
         $programs = $programRepository->findAll();
@@ -68,7 +68,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/program/{slug}', requirements: ['page'=>'\d+'], methods: ['GET'], name:'program_show')]
+    #[Route('/{slug}', requirements: ['page'=>'\d+'], methods: ['GET'], name:'show')]
     public function show(Program $program, ProgramDuration $programDuration): Response
     {
         return $this->render('program/show.html.twig', [
@@ -78,7 +78,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/program/{slug}/season/{season}', name:'season_show')]
+    #[Route('/{slug}/season/{season}', name:'season_show')]
     public function showSesaon(Program $program, Season $season): Response
     {
             return $this->render('program/season_show.html.twig', [
@@ -88,7 +88,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/program/{slug}/season/{season_id}/episode/{episode_id}', name:'episode_show')]
+    #[Route('/{slug}/season/{season_id}/episode/{episode_id}', name:'episode_show')]
     public function showEpisode(
         #[MapEntity(mapping: ['slug' => 'slug'])] Program $program, 
         #[MapEntity(mapping: ['season_id' => 'id'])] Season $season,
@@ -102,7 +102,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Program $program, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProgramType::class, $program);
@@ -121,7 +121,7 @@ class ProgramController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'program_delete', methods: ['POST'])]
+    #[Route('/{slug}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Program $program, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$program->getId(), $request->request->get('_token'))) {
