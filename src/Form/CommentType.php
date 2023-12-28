@@ -14,8 +14,8 @@ class CommentType extends AbstractType
         $builder
             ->add('comment')
             ->add('rate')
-            ->add('author')
-            ->add('episode')
+            ->add('author', null, ['choice_label' => 'email'])
+            ->add('episode', null, ['choice_label' => 'title'])
         ;
     }
 
