@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-lg text-primary-emphasis bg-danger" data-bs-theme="light">
 	<div class="container-fluid">
 		<a class="navbar-brand" href="/">Wild series</a>
+		{% if app.user %}
+			<h4>{{ app.user.email }}</h4>
+		{% endif %}
 		<div class="navbar-text" id="navbarSupportedContent">
 			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
 				<li class="nav-item dropdown">
@@ -37,6 +40,15 @@
 							<a class="nav-link active" aria-current="page" href="/category/new">Add category</a>
 						</li>
 					</ul>
+				</li>
+				<li class="nav-item">
+					{% if app.user %}
+						<a class="nav-link active" href="{{ path('app_logout') }}">
+							Logout</a>
+					{% else %}
+						<a class="nav-link active" aria-current="page" href="{{ path('app_login') }}">
+							Login</a>
+					{% endif %}
 				</li>
 				<li class="nav-item">
 					<a class="nav-link active" aria-current="page" href="/">Home</a>
