@@ -21,6 +21,17 @@
 			<p class="mt-3">Synopsis :
 				{{ episode.synopsis }}</p>
 		</div>
+		<strong>Comments :</strong>
+		<ul>
+			{% for comment in episode.comments %}
+				<li>
+					<p>{{ comment.comment }}</p>
+				</li>
+			{% else %}
+				<li>No comment</li>
+			{% endfor %}
+		</ul>
+		<br>
 		{% if app.user %}
 			<div class="m-3">
 				<a href="{{ path('app_comment_new') }}" class="btn btn-danger">Add a comment</a>
