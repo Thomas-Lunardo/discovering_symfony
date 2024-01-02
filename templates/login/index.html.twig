@@ -10,7 +10,7 @@
 	{% endif %}
 	<h2 class="text-center m-4">Login</h2>
 	<div class="container">
-		<form action="{{ path('app_login') }}" method="post" class="mt-5 w-50 mx-auto">
+		<form action="{{ path('app_login') }}" method="post" class="m-5 w-50 mx-auto">
 			<div class="mb-4">
 				<label for="username" class="form-label">Email</label>
 				<input type="text" id="username" name="_username" value="{{ last_username }}" class="form-control">
@@ -24,8 +24,14 @@
 
 			<input type="hidden" name="_csrf_token" value="{{ csrf_token('anthenticate') }}">
 
-			<button type="submit" class="btn btn-danger w-25">Login</button>
+			<div class="text-center mx-auto">
+				<button type="submit" class="btn btn-danger w-25">Login</button>
+			</div>
 		</form>
+		<div class="container mt-5 text-center">
+			<p>You haven't account yet</p>
+			<a class="btn btn-danger" href="{{ path('app_register') }}" role="button">Register</a>
+		</div>
 	</div>
 
 {% endblock %}
