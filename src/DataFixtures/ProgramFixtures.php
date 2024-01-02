@@ -35,6 +35,7 @@ class ProgramFixtures extends Fixture implements DependentFixtureInterface
             if (array_key_exists('poster', $programName)) {
                 $program->setPoster($programName['poster']);
             }
+            $program->setOwner($this->getReference($programName['Owner']));
             $manager->persist($program);
             $this->addReference('program_' . $programName['title'], $program);
         }

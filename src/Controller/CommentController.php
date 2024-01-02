@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/comment')]
 class CommentController extends AbstractController
@@ -23,6 +24,7 @@ class CommentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTRIBUTOR')]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $comment = new Comment();
@@ -30,6 +32,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment->setAuthor($this->getUser());
             $entityManager->persist($comment);
             $entityManager->flush();
 
@@ -53,6 +56,9 @@ class CommentController extends AbstractController
     #[Route('/{id}/edit', name: 'app_comment_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Comment $comment, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser() !== $comment->getAuthor()) {
+            throw $this->createAccessDeniedException('Only the owner can edit the comment');
+        }
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 

@@ -17,6 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/program', name: 'program_')]
 class ProgramController extends AbstractController
@@ -43,6 +45,7 @@ class ProgramController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 $slug = $slugger->slug($program->getTitle());
                 $program->setSlug($slug);
+                $program->setOwner($this->getUser());
                 
                 $entityManager->persist($program);
                 $email = (new Email())
@@ -55,10 +58,7 @@ class ProgramController extends AbstractController
 
             $entityManager->flush();
 
-
             $this->addFlash('success', 'The new program has been created');
-
-
 
             return $this->redirectToRoute('program_index');
             }
@@ -103,8 +103,13 @@ class ProgramController extends AbstractController
     }
 
     #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_CONTRIBUTOR')]
     public function edit(Request $request, Program $program, EntityManagerInterface $entityManager): Response
     {
+        if ($this->getUser() !== $program->getOwner()) {
+            // if not the owner, throws a 403 Access Denied exeption
+            throw $this->createAccessDeniedException('Only the owner can edit the program!');
+        }
         $form = $this->createForm(ProgramType::class, $program);
         $form->handleRequest($request);
 

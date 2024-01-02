@@ -42,6 +42,10 @@
 					{% endfor %}
 				</ul>
 				<br>
+				{% if is_granted('ROLE_CONTRIBUTOR') %}
+				<a href="{{ path('program_edit', { slug: program.slug} ) }}">Edit the program</a>
+				{% endif %}
+				<br>				
 				<a href="{{ path('program_index', { slug: program.slug }) }}">
 					Return to the program list
 				</a>
