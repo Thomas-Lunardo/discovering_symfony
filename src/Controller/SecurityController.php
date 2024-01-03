@@ -40,4 +40,13 @@ class SecurityController extends AbstractController
             'registrationForm' => $form->createView(),
         ]);
     }
+
+    #[Route('/my-profil', name: 'app_profile')]
+    public function profile(): Response
+    {
+        $user = $this->getUser();
+        return $this->render('security/profile.html.twig', [
+            'user' => $user,
+        ]);
+    }
 }
