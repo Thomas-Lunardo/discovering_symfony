@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Wild Series - Register
+{% endblock %}
+
+{% block body %}
+	<h2 class="text-center m-4">Register</h2>
+
+	{{ form_errors(registrationForm) }}
+	<div class="container">
+		<div class="mt-5 w-50 mx-auto">
+			{{ form_start(registrationForm) }}
+			<div class="mb-4 fs-4">
+				{{ form_row(registrationForm.email) }}
+			</div>
+			<div class="mb-4 fs-4">
+				{{ form_row(registrationForm.plainPassword, {
+            label: 'Password'
+        }) }}
+			</div>
+			<div class="mb-4 fs-4">
+				{{ form_row(registrationForm.agreeTerms) }}
+			</div>
+
+			<button type="submit" class="btn btn-danger w-25 mt-5">Register</button>
+			{{ form_end(registrationForm) }}
+		</div>
+	</div>
+{% endblock %}
