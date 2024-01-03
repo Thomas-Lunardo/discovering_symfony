@@ -6,10 +6,20 @@
 {% block body %}
 	<div class="container mb-4">
 		<h1 class="text-center mb-5">All progames avalable in Wild series</h1>
+		<div>
+			{{ form_start(form) }}
+			<div class="w-50">
+				{{ form_widget(form) }}
+			</div>
+			<button class="btn btn-danger">Search</button>
+			{{ form_end(form) }}
+		</div>
+
 		{% for program in programs%}
 			<div>
 				<h2>
-					{{ loop.index }}/ {{ program.title}}
+					{{ loop.index }}/
+					{{ program.title}}
 				</h2>
 				<h3>Category:
 					{{ program.category.name}}</h3>
